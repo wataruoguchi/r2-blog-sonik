@@ -7,3 +7,5 @@ dist
 wrangler.toml
 yarn.lock
 pnpm-lock.yaml
+
+.eslintcache

@@ -5,15 +5,21 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "types": [
       "@cloudflare/workers-types",
       "node",
       "vite/client",
+      "jest",
+      "@testing-library/jest-dom"
     ],
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  },
+    "jsxImportSource": "react",
+
+    /* Linting */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true
+  }
 }

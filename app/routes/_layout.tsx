@@ -21,8 +21,8 @@ const handler: LayoutHandler = ({ children, head }) => {
       <body>
         <div className="wrapper">
           <header>
-            <h1>
-              <a href="/">Top</a>
+            <h1 className="text-pink-500">
+              Link to <a href="/">Top</a>
             </h1>
           </header>
           {children}

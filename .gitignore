@@ -9,4 +9,4 @@ yarn.lock
 pnpm-lock.yaml
 
 .eslintcache
-.style.css
+style.css

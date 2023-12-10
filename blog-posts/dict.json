@@ -1,0 +1,14 @@
+{
+  "dict": {
+    "hey.md": {
+      "createdDate": "2023-12-10T20:22:58.160Z",
+      "updatedDate": "2023-12-10T20:33:18.558Z",
+      "title": "Hey!",
+      "tags": ["Blog", "Multi-word phrase"],
+      "description": "This should go to the header.\\nMulti-lines.",
+      "bannerCredit": "Photographer's name.",
+      "bannerUrl": "https://fakeimg.pl/300x200"
+    }
+  },
+  "idsByTag": { "Blog": ["hey.md"], "Multi-word phrase": ["hey.md"] }
+}

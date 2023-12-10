@@ -1,17 +1,27 @@
 import type { Context } from "sonik";
 import Counter from "../islands/counter";
+import { getR2 } from "../utils/getR2";
+import { ISOtoLocal } from "../utils/ISOtoLocal";
 
 export default async function Index(c: Context) {
-  const listFile = await c.env.BUCKET.get("list.json");
-  const listMap = listFile ? JSON.parse(await listFile.text()) : {};
-
+  const { dict } = JSON.parse(await getR2(c, "dict.json"));
   return c.render(
     <div>
-      <h3>List</h3>
+      <h1>Blog Posts</h1>
       <ul>
-        {Object.keys(listMap).map((key) => (
+        {Object.keys(dict).map((key) => (
           <li key={key}>
-            {key}: {JSON.stringify(listMap[key])}
+            <a href={`/blog/${key.replace(/\.md$/, "")}`}>
+              <div>
+                {dict[key].bannerUrl ? (
+                  <img src={dict[key].bannerUrl} alt="" />
+                ) : (
+                  <></>
+                )}
+                <span>{dict[key].title}</span>
+                <span>{ISOtoLocal(dict[key].createdDate).split(",")[0]}</span>
+              </div>
+            </a>
           </li>
         ))}
       </ul>

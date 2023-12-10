@@ -4,7 +4,7 @@ import { resolve } from "path";
 import sonik from "sonik/vite";
 import { defineConfig } from "vite";
 import { R2Bucket, handlers, local2r2 } from "./plugins/local2r2";
-import { parseMarkdown } from "./utils/markdown";
+import { MarkdownMeta, parseMarkdown } from "./utils/markdown";
 
 export default defineConfig(({ command }) => {
   const defaultConfig = {
@@ -38,8 +38,10 @@ export default defineConfig(({ command }) => {
         handlers: {
           ...handlers,
           change: async (bucket, id, fileName) => {
-            await updateList(bucket, id, fileName);
-            await handlers.change(bucket, id, fileName);
+            await updateDict(bucket, id, fileName);
+            await handlers.change(bucket, id, fileName, {
+              md: (orig: string) => JSON.stringify(parseMarkdown(orig)),
+            });
           },
         },
       }),
@@ -47,39 +49,60 @@ export default defineConfig(({ command }) => {
   };
 });
 
-async function updateList(_bucket: R2Bucket, id: string, filename: string) {
+async function updateDict(_bucket: R2Bucket, id: string, filename: string) {
   try {
-    const listFilePath = resolve("./blog-posts/list.json");
-    if (id === listFilePath) return;
+    const dictFilePath = resolve("./blog-posts/dict.json");
+    if (id === dictFilePath) return;
     if (!filename.endsWith(".md")) return;
     try {
-      await fs.access(listFilePath);
+      await fs.access(dictFilePath);
     } catch (e) {
-      await fs.writeFile(listFilePath, JSON.stringify({}));
+      await fs.writeFile(dictFilePath, JSON.stringify({}));
     }
 
     const markdownDoc = await fs.readFile(id, "utf8");
-    const { title, tags } = parseMarkdown(markdownDoc);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { content, ...markdownMeta } = parseMarkdown(markdownDoc);
 
-    // Dump the file into memory as a JSON object
-    const list = JSON.parse(await fs.readFile(listFilePath, "utf-8"));
-    // Find the index of the file in the list. If it exists, update the title.
-    list[filename] = list[filename]
+    type Dictionary = Record<
+      string,
+      MarkdownMeta & { updatedDate: string; createdDate: string }
+    >;
+    const {
+      dict = {},
+    }: {
+      dict: Dictionary;
+    } = JSON.parse(await fs.readFile(dictFilePath, "utf-8"));
+
+    dict[filename] = dict[filename]
       ? {
-          ...list[filename],
+          ...dict[filename],
           updatedDate: new Date().toISOString(),
-          title,
-          tags,
+          ...markdownMeta,
         }
       : {
           createdDate: new Date().toISOString(),
           updatedDate: new Date().toISOString(),
-          title,
-          tags,
+          ...markdownMeta,
         };
-    fs.writeFile(listFilePath, JSON.stringify(list));
+
+    const idsByTag = Object.keys(dict).reduce(
+      (acc, id: string) => {
+        const tags = dict[id].tags;
+        tags.forEach((tag) => {
+          if (!acc[tag]) {
+            acc[tag] = [];
+          }
+          acc[tag].push(id);
+        });
+        return acc;
+      },
+      {} as Record<string, string[]>,
+    );
+
+    fs.writeFile(dictFilePath, JSON.stringify({ dict, idsByTag }));
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
-    console.error("Failed on updating the list", e);
+    console.error("Failed on updating the dict", e);
   }
 }

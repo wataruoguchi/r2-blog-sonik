@@ -1,9 +1,12 @@
 import md from "markdown-it";
 import mdFrontmatter from "markdown-it-front-matter";
 
-type MarkdownMeta = {
+export type MarkdownMeta = {
   title: string;
   tags: string[];
+  description?: string;
+  bannerCredit?: string;
+  bannerUrl?: string;
 };
 type MarkdownParsed = {
   content: string;
@@ -18,7 +21,7 @@ export function parseMarkdown(markdown: string): MarkdownParsed {
         .reduce((acc, keyValue) => {
           const [key, value] = keyValue;
           if (key === "tags") {
-            return { ...acc, tags: value.split(",") };
+            return { ...acc, tags: value.split(",").map((tag) => tag.trim()) };
           }
           return { ...acc, [key]: value };
         }, {} as MarkdownMeta);

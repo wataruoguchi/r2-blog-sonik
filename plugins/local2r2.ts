@@ -77,14 +77,24 @@ export function local2r2(options: Options): Plugin {
 
 export const handlers: Record<
   EventName,
-  (bucket: R2Bucket, id: string, fileName: string) => Promise<void>
+  (
+    bucket: R2Bucket,
+    id: string,
+    fileName: string,
+    transformers?: Record<string, (orig: string) => string>, // ext
+  ) => Promise<void>
 > = {
-  change: async (bucket, id, fileName) => {
+  change: async (bucket, id, fileName, transformers) => {
     try {
       await fs.access(id);
       console.info(`${fileName} is updated`);
       const content = await fs.readFile(id, "utf8");
-      await bucket.put(fileName, content);
+      const ext = fileName.split(".").pop() ?? "";
+      const notTransformer = (orig: string) => orig;
+      await bucket.put(
+        fileName,
+        (transformers?.[ext] ?? notTransformer)(content),
+      );
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.code === "ENOENT") {

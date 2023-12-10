@@ -11,7 +11,17 @@ export default defineConfig(({ command }) => {
     define: {
       "process.env": process.env,
     },
-    plugins: [sonik(), pages()],
+    plugins: [
+      sonik({
+        devServer: {
+          cf: {
+            r2Buckets: ["BUCKET"],
+            r2Persist: true,
+          },
+        },
+      }),
+      pages(),
+    ],
   };
 
   if (command === "build") {

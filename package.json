@@ -58,6 +58,6 @@
     "ts-jest": "^29.1.1",
     "typescript": "^5.3.3",
     "vite": "^4.4.11",
-    "wrangler": "^3.13.1"
+    "wrangler": "^3.19.0"
   }
 }

@@ -9,7 +9,7 @@ export type MarkdownMeta = {
   bannerCredit?: string;
   bannerUrl?: string;
 };
-type MarkdownParsed = {
+export type MarkdownParsed = {
   content: string;
 } & MarkdownMeta;
 export function parseMarkdown(markdown: string): MarkdownParsed {

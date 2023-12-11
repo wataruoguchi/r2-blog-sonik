@@ -7,6 +7,7 @@
     "npm": ">=10",
     "node": ">=20"
   },
+  "author": "Wataru Oguchi <wataru@hey.com> (https://github.com/wataruoguchi)",
   "scripts": {
     "build": "npm run build:css && vite build && vite build --mode client",
     "build:css": "npx tailwindcss -i ./app/index.css -o ./app/style.css",

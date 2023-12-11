@@ -8,6 +8,10 @@ import { MarkdownMeta, parseMarkdown } from "./utils/markdown";
 
 export default defineConfig(({ command }) => {
   const defaultConfig = {
+    ssr: {
+      // The modules designed for running on the client side.
+      external: ["usehooks-ts"],
+    },
     define: {
       "process.env": process.env,
     },

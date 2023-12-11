@@ -1,4 +1,5 @@
 import type { LayoutHandler } from "@sonikjs/react";
+import DarkModeToggle from "../islands/dark-mode-toggle";
 
 const handler: LayoutHandler = ({ children, head }) => {
   return (
@@ -18,8 +19,9 @@ const handler: LayoutHandler = ({ children, head }) => {
         )}
         {head.createTags()}
       </head>
-      <body>
+      <body className="bg-white dark:bg-black">
         <div className="wrapper">
+          <DarkModeToggle />
           <header>
             <h1 className="text-pink-500">
               Link to <a href="/">Top</a>

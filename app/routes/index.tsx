@@ -1,5 +1,4 @@
 import type { Context } from "sonik";
-import Counter from "../islands/counter";
 import { getR2 } from "../utils/getR2";
 import { ISOtoLocal } from "../utils/ISOtoLocal";
 
@@ -28,7 +27,6 @@ export default async function Index(c: Context) {
       <h2>
         Hello <a href="/about/me">me</a>!
       </h2>
-      <Counter />
     </div>,
     {
       title: "Welcome to Sonik!",

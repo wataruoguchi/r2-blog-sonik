@@ -8,7 +8,7 @@ bannerUrl: https://fakeimg.pl/300x200
 
 # Hey, y'all!
 
-Hello everyone!
+Hello everyone! :smile:
 
 ```ts
 console.log("hello");
@@ -16,8 +16,8 @@ console.log("hello");
 
 ## TODO
 
-- [ ] One
-- [ ] Two
+- :white_check_mark: One
+- :white_check_mark: Two
 
 We can also render an image.
 

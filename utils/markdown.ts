@@ -1,3 +1,4 @@
+import hljs from "highlight.js";
 import md from "markdown-it";
 import mdFrontmatter from "markdown-it-front-matter";
 
@@ -13,7 +14,23 @@ type MarkdownParsed = {
 } & MarkdownMeta;
 export function parseMarkdown(markdown: string): MarkdownParsed {
   let frontmatter: MarkdownMeta = { title: "", tags: [] };
-  const content = md({ html: true, breaks: false, typographer: true })
+  const content = md({
+    html: true,
+    breaks: false,
+    typographer: true,
+    highlight: (str, lang) => {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return `<pre class="hljs"><code>${
+            hljs.highlight(str, { language: lang, ignoreIllegals: true }).value
+          }</code></pre>`;
+        } catch (__) {
+          return "";
+        }
+      }
+      return "";
+    },
+  })
     .use(mdFrontmatter, (str: string) => {
       frontmatter = str
         .split("\n")

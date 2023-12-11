@@ -24,7 +24,9 @@
   "dependencies": {
     "@hono/vite-dev-server": "^0.0.7",
     "@sonikjs/react": "^0.0.4",
+    "highlight.js": "^11.9.0",
     "hono": "^3.7.6",
+    "i": "^0.3.7",
     "markdown-it": "^14.0.0",
     "markdown-it-front-matter": "^0.2.3",
     "react": "^18.2.0",

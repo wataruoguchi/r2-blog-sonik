@@ -1,7 +1,6 @@
-import { useDarkMode } from "usehooks-ts";
+import { useDarkMode, useIsClient } from "usehooks-ts";
 import { DarkIcon } from "./dark.svg";
 import { LightIcon } from "./light.svg";
-import { useIsSsr } from "../../hooks/use-is-ssr";
 import { useEffect } from "react";
 
 // Named export does not work with Sonik
@@ -11,13 +10,13 @@ export default function DarkModeToggle() {
     document.documentElement.classList[isDarkMode ? "add" : "remove"]("dark");
   };
 
-  const isSSR = useIsSsr();
+  const isClient = useIsClient();
   const { isDarkMode, toggle } = useDarkMode();
   useEffect(() => {
     addDarkIfDarkMode();
   });
 
-  if (isSSR)
+  if (!isClient)
     return <button className="w-5 h-5" aria-label="placeholder"></button>;
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const [Icon, className] = isDarkMode

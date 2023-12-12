@@ -4,7 +4,7 @@ import { resolve } from "path";
 import sonik from "sonik/vite";
 import { defineConfig } from "vite";
 import { R2Bucket, handlers, local2r2 } from "./plugins/local2r2";
-import { MarkdownMeta, parseMarkdown } from "./utils/markdown";
+import { MarkdownMetaWithDate, parseMarkdown } from "./utils/markdown";
 
 export default defineConfig(({ command }) => {
   const defaultConfig = {
@@ -68,10 +68,7 @@ async function updateDict(_bucket: R2Bucket, id: string, filename: string) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { content, ...markdownMeta } = parseMarkdown(markdownDoc);
 
-    type Dictionary = Record<
-      string,
-      MarkdownMeta & { updatedDate: string; createdDate: string }
-    >;
+    type Dictionary = Record<string, MarkdownMetaWithDate>;
     const {
       dict = {},
     }: {

@@ -1,13 +1,20 @@
 import hljs from "highlight.js";
 import md from "markdown-it";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import { full as emoji } from "markdown-it-emoji";
 import mdFrontmatter from "markdown-it-front-matter";
 
-export type MarkdownMeta = {
+type MarkdownMeta = {
   title: string;
   tags: string[];
   description?: string;
   bannerCredit?: string;
   bannerUrl?: string;
+};
+export type MarkdownMetaWithDate = MarkdownMeta & {
+  createdDate: string;
+  updatedDate: string;
 };
 export type MarkdownParsed = {
   content: string;
@@ -43,6 +50,7 @@ export function parseMarkdown(markdown: string): MarkdownParsed {
           return { ...acc, [key]: value };
         }, {} as MarkdownMeta);
     })
+    .use(emoji)
     .render(markdown);
   return { content, ...frontmatter };
 }

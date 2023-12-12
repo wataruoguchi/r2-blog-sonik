@@ -3,7 +3,11 @@ export default {
   darkMode: "class",
   content: ["./app/**/*.tsx"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "custom-color": "#333333",
+      },
+    },
   },
   plugins: [],
 };

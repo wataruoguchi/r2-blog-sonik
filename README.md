@@ -16,7 +16,6 @@ npx wrangler r2 bucket create <your_bucket_name> # Create a bucket
 
 - The modules in `islands` have to be "Default exports". They don't work with "Named exports".
 - To prevent flickers for dark mode, an inline script is needed. [stackoverflow](https://stackoverflow.com/questions/63033412/dark-mode-flickers-a-white-background-for-a-millisecond-on-reload)
-- The `serveStatic` from `"hono/cloudflare-pages"` does not take a parameter. I used the `serveStatic` from `"@hono/node-server/serve-static"` instead.
 - The "unkink" event in the `local2r2` is not developed, but it should be super easy to build one.
 
 ## Kudos

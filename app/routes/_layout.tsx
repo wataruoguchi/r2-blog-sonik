@@ -1,7 +1,7 @@
 import type { LayoutHandler } from "@sonikjs/react";
 import DarkModeToggle from "../islands/dark-mode-toggle";
 import { getAuthor } from "../utils/get-author";
-import { assetPath } from "../../utils/asset-path";
+import { assetPath } from "../asset-path";
 
 const handler: LayoutHandler = ({ children, head }) => {
   const { name: authorName } = getAuthor();

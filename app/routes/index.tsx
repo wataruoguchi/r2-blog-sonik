@@ -6,7 +6,7 @@ import { getAuthor } from "../utils/get-author";
 import { Card } from "../components/card";
 import { MarkdownMetaWithDate } from "../../utils/markdown";
 import { RightArrow } from "../components/right-arrow";
-import { assetPath } from "../../utils/asset-path";
+import { assetPath } from "../asset-path";
 
 export default async function Index(c: Context) {
   const { name: authorName } = getAuthor();

@@ -22,7 +22,11 @@ export default async function Index(c: Context) {
               alt="Thank you, ChatGPT"
               className="mx-auto object-cover sm:w-full lg:order-last"
               height="400"
-              src="/assets/hero.webp"
+              src={
+                import.meta.env.PROD
+                  ? "/static/assets/hero.webp"
+                  : "/app/assets/hero.webp"
+              }
               style={{
                 aspectRatio: "400/400",
                 objectFit: "cover",

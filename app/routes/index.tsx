@@ -6,6 +6,7 @@ import { getAuthor } from "../utils/get-author";
 import { Card } from "../components/card";
 import { MarkdownMetaWithDate } from "../../utils/markdown";
 import { RightArrow } from "../components/right-arrow";
+import { assetPath } from "../../utils/asset-path";
 
 export default async function Index(c: Context) {
   const { name: authorName } = getAuthor();
@@ -22,11 +23,7 @@ export default async function Index(c: Context) {
               alt="Thank you, ChatGPT"
               className="mx-auto object-cover sm:w-full lg:order-last"
               height="400"
-              src={
-                import.meta.env.PROD
-                  ? "/static/assets/hero.webp"
-                  : "/app/assets/hero.webp"
-              }
+              src={assetPath("/assets/hero.webp")}
               style={{
                 aspectRatio: "400/400",
                 objectFit: "cover",

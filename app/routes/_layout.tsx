@@ -1,6 +1,7 @@
 import type { LayoutHandler } from "@sonikjs/react";
 import DarkModeToggle from "../islands/dark-mode-toggle";
 import { getAuthor } from "../utils/get-author";
+import { assetPath } from "../../utils/asset-path";
 
 const handler: LayoutHandler = ({ children, head }) => {
   const { name: authorName } = getAuthor();
@@ -10,17 +11,10 @@ const handler: LayoutHandler = ({ children, head }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {authorName ? <meta name="author" content={authorName} /> : null}
         {head.createTags()}
-        {import.meta.env.PROD ? (
-          <>
-            <link href="/static/style.css" rel="stylesheet" />
-            <script type="module" src="/static/client.js"></script>
-          </>
-        ) : (
-          <>
-            <link href="/app/style.css" rel="stylesheet" />
-            <script type="module" src="/app/client.ts"></script>
-          </>
-        )}
+        <>
+          <link href={assetPath("/style.css")} rel="stylesheet" />
+          <script type="module" src={assetPath("/client.ts")}></script>
+        </>
         {
           // Mitigate flashing by the script below.
         }

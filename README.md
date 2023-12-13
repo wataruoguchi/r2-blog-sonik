@@ -8,8 +8,8 @@ You wouldn't need this step if you just run it locally.
 
 ```sh
 npx wrangler login
-npx wrangler generate # Create `wrangler.toml`
-npx wrangler r2 bucket create <your_bucket_name> # Create a bucket
+npx wrangler r2 bucket create <your-bucket-name> # Create a bucket
+npx wrangler r2 object put <your-bucket-name>/<filename> --file <path/filename> # Put a content into the bucket
 ```
 
 ## Notes
@@ -17,6 +17,11 @@ npx wrangler r2 bucket create <your_bucket_name> # Create a bucket
 - The modules in `islands` have to be "Default exports". They don't work with "Named exports".
 - To prevent flickers for dark mode, an inline script is needed. [stackoverflow](https://stackoverflow.com/questions/63033412/dark-mode-flickers-a-white-background-for-a-millisecond-on-reload)
 - The "unkink" event in the `local2r2` is not developed, but it should be super easy to build one.
+
+## TODO
+
+- [ ] Markdown syntax highlight.
+- [ ] Ambitious goal: Putting assets automatically.
 
 ## Kudos
 

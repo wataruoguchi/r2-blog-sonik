@@ -13,7 +13,7 @@ type PromiseType<T extends Promise<unknown>> = T extends Promise<infer R>
 export type R2Bucket = PromiseType<ReturnType<Miniflare["getR2Bucket"]>>;
 type Handler = (
   bucket: R2Bucket,
-  id: string,
+  filePath: string,
   fileName: string,
 ) => Promise<void>;
 type EventName = "add" | "change" | "unlink";
@@ -46,10 +46,10 @@ export function local2r2(options: Options): Plugin {
       });
       // eventName: 'add' | 'addDir' | 'change' | 'unlink' | 'unlinkDir'
       // When `add` is called, `change` is also called.
-      server.watcher.on("all", (eventName: EventName, id) => {
-        if (!id.startsWith(targetDir)) return;
+      server.watcher.on("all", (eventName: EventName, filePath) => {
+        if (!filePath.startsWith(targetDir)) return;
 
-        const fileName = relative(targetDir, id);
+        const fileName = relative(targetDir, filePath);
         (async () => {
           try {
             const bucket = await mf.getR2Bucket(
@@ -57,7 +57,7 @@ export function local2r2(options: Options): Plugin {
             );
             await (options.handlers ?? handlers)[eventName]?.(
               bucket,
-              id,
+              filePath,
               fileName,
             );
             server.ws.send({
@@ -66,7 +66,7 @@ export function local2r2(options: Options): Plugin {
             });
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
           } catch (error: any) {
-            console.error(`Error for ${id}:`, error);
+            console.error(`Error for ${filePath}:`, error);
           }
         })();
       });
@@ -77,31 +77,21 @@ export function local2r2(options: Options): Plugin {
 
 export const handlers: Record<
   EventName,
-  (
-    bucket: R2Bucket,
-    id: string,
-    fileName: string,
-    transformers?: Record<string, (orig: string) => string>, // ext
-  ) => Promise<void>
+  (bucket: R2Bucket, filePath: string, fileName: string) => Promise<void>
 > = {
-  change: async (bucket, id, fileName, transformers) => {
+  change: async (bucket, filePath, fileName) => {
     try {
-      await fs.access(id);
+      await fs.access(filePath);
       console.info(`${fileName} is updated`);
-      const content = await fs.readFile(id, "utf8");
-      const ext = fileName.split(".").pop() ?? "";
-      const notTransformer = (orig: string) => orig;
-      await bucket.put(
-        fileName,
-        (transformers?.[ext] ?? notTransformer)(content),
-      );
+      const content = await fs.readFile(filePath, "utf8");
+      await bucket.put(fileName, content);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.code === "ENOENT") {
         console.info(`${fileName} is deleted`);
         await bucket.delete(fileName);
       } else {
-        console.error(`Error accessing file ${id}:`, error);
+        console.error(`Error accessing file ${filePath}:`, error);
       }
     }
   },

@@ -11,3 +11,5 @@ pnpm-lock.yaml
 .eslintcache
 style.css
 .mf
+
+utils/emojis.json

@@ -1,13 +1,13 @@
 import { Context } from "sonik";
 import { getR2 } from "../../utils/get-r2";
-import { MarkdownMetaWithDate, MarkdownParsed } from "../../../utils/markdown";
+import { MarkdownMetaWithDate, parseMd } from "../../../utils/markdown";
 import { ISOtoLocal } from "../../utils/iso-to-local";
 
 export default async function AboutName(c: Context) {
   const id = c.req.param("id");
   try {
     const { content, title, tags, description, bannerCredit, bannerUrl } =
-      JSON.parse(await getR2(c, `${id}.md`)) as MarkdownParsed;
+      parseMd(await getR2(c, `${id}.md`));
     const { createdDate } = JSON.parse(await getR2(c, `dict.json`)).dict?.[
       `${id}.md`
     ] as MarkdownMetaWithDate;
@@ -39,7 +39,10 @@ export default async function AboutName(c: Context) {
             <div className="mt-8">
               <div className="flex flex-wrap">
                 {tags.map((tag) => (
-                  <span className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                  <span
+                    id={tag}
+                    className="bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                  >
                     {tag}
                   </span>
                 ))}

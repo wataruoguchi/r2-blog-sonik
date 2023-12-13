@@ -11,10 +11,10 @@ export default async function Index(c: Context) {
   const { name: authorName } = getAuthor();
   const {
     dict,
-    idsByTag,
+    tags,
   }: {
     dict: Record<string, MarkdownMetaWithDate>;
-    idsByTag: Record<string, string>;
+    tags: string[];
   } = JSON.parse(await getR2(c, "dict.json"));
 
   return c.render(
@@ -23,7 +23,7 @@ export default async function Index(c: Context) {
         <Section>
           <h2 className="text-lg">Search blog by a tag</h2>
           <div>
-            {Object.keys(idsByTag).map((tag) => (
+            {tags.map((tag) => (
               <a
                 id={tag}
                 className="inline-flex h-10 items-center justify-center rounded-md bg-blue-500 px-8 mx-1 text-sm font-medium text-white shadow transition-colors hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600"

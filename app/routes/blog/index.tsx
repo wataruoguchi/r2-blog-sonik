@@ -1,7 +1,6 @@
 import type { Context } from "sonik";
 import { getAuthor } from "../../utils/get-author";
-import { MarkdownMetaWithDate } from "../../../utils/markdown";
-import { getR2 } from "../../utils/get-r2";
+import { fetchDict } from "../../utils/fetch-from-r2";
 import { Card } from "../../components/card";
 import { ISOtoLocal } from "../../utils/iso-to-local";
 import { Section } from "../../components/section";
@@ -9,13 +8,7 @@ import { Section } from "../../components/section";
 export default async function Index(c: Context) {
   const qFromQueryParams = c.req.query("q");
   const { name: authorName } = getAuthor();
-  const {
-    dict,
-    tags,
-  }: {
-    dict: Record<string, MarkdownMetaWithDate>;
-    tags: string[];
-  } = JSON.parse(await getR2(c, "dict.json"));
+  const { dict, tags } = await fetchDict(c);
 
   return c.render(
     <div className="flex-1">

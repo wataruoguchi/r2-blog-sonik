@@ -1,14 +1,18 @@
 import { Context } from "sonik";
-import { getR2 } from "../../utils/get-r2";
+import { fetchDict, fetchMarkdown } from "../../utils/fetch-from-r2";
 import { MarkdownMetaWithDate, parseMd } from "../../../utils/markdown";
 import { ISOtoLocal } from "../../utils/iso-to-local";
 
 export default async function AboutName(c: Context) {
   const id = c.req.param("id");
   try {
+    const markdown = await fetchMarkdown(c, id);
+    if (!markdown) {
+      throw new Error("Not found");
+    }
     const { content, title, tags, description, bannerCredit, bannerUrl } =
-      parseMd(await getR2(c, `${id}.md`));
-    const { createdDate } = JSON.parse(await getR2(c, `dict.json`)).dict?.[
+      parseMd(markdown);
+    const { createdDate } = (await fetchDict(c)).dict?.[
       `${id}.md`
     ] as MarkdownMetaWithDate;
     return c.render(

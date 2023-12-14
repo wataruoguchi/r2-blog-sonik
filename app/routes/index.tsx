@@ -1,18 +1,15 @@
 import type { Context } from "sonik";
-import { getR2 } from "../utils/get-r2";
+import { fetchDict } from "../utils/fetch-from-r2";
 import { ISOtoLocal } from "../utils/iso-to-local";
 import { Section } from "../components/section";
 import { getAuthor } from "../utils/get-author";
 import { Card } from "../components/card";
-import { MarkdownMetaWithDate } from "../../utils/markdown";
 import { RightArrow } from "../components/right-arrow";
 import { assetPath } from "../asset-path";
 
 export default async function Index(c: Context) {
   const { name: authorName } = getAuthor();
-  const { dict }: { dict: Record<string, MarkdownMetaWithDate> } = JSON.parse(
-    await getR2(c, "dict.json"),
-  );
+  const { dict } = await fetchDict(c);
 
   return c.render(
     <div className="flex-1">

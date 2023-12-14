@@ -1,8 +1,9 @@
 # [r2-blog](https://github.com/yusukebe/r2-blog) :handshake: [Sonik](https://github.com/sonikjs/sonik)
 
-This experimental project was driven by my curiosity about the `r2-blog` project and building an SSR project. Before this project, I learned how to create an SSR project with React to obtain understanding. MOST of the things I implemented here can be achievable by other SSR frameworks such as Remix and NextJS. But the point is to develop my knowledge and experience.
+This experimental project was driven by my curiosity about the [r2-blog](https://github.com/yusukebe/r2-blog) project and building an SSR application with [Sonik](https://github.com/sonikjs/sonik).
+Most of the things I implemented here can be achievable by other SSR frameworks such as Remix and NextJS. The entire point is to gain knowledge and experience building an SSR application on top of the [cloudflare pages](https://pages.cloudflare.com/).
 
-## Setup
+## Prod Setup
 
 You wouldn't need this step if you just run it locally.
 

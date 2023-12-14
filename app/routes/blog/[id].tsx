@@ -50,6 +50,58 @@ export default async function AboutName(c: Context) {
             </div>
           </article>
         </div>
+        {/**
+         * https://highlightjs.org/#usage
+         * https://cdnjs.com/libraries/highlight.js
+         */}
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"
+          integrity="sha512-hasIneQUHlh06VNBe7f6ZcHmeRTLIaQWFd43YriJ0UND19bvYRauxthDg8E4eVNPm9bRUhr5JGeqH7FRFXQu5g=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+          integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"
+          integrity="sha512-GsPn8jZedZaPLThVdRVJ9kvS02HmLZBsoC9qon3IZE8Al7pUBlDIK4IzAtMbxtZ2GtLMFhHusOLTwf2JIDr0oA=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/json.min.js"
+          integrity="sha512-Tj35Q81ghoSFK84ee0H7qn2IjAyKwZQ9oYJDjtBmKOmlSz3MUqHrXxoMxIR9GrXzFakEiSV/VMrWwyAp45Bqjw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"
+          integrity="sha512-H69VMoQ814lKjFuFwLImb4OwoK8Rm8fcvsqZexaxjp/VkJfEnrt5TO7oaOdNlMf/j51QUctfLTe8+rgozW7l2A=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"
+          integrity="sha512-i0JFeiLhgBAMGfIEVqMQwALhhse1orgl34XyotSUNiNbDIB1qS9IK53sDochCIrwvj4nJ51CsDSOqhGyhZITGg=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"
+          integrity="sha512-OPn2UK2VPojF+Hh0tfLSMiaKfP0MpRfam/6Q9VVA7LK070PkQxvffqe6chqyp6R2Ml2K7+VOdxEbMpjIKwnCAw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `hljs.highlightAll();`,
+          }}
+        />
       </div>,
       {
         title: `${title}`,

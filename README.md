@@ -17,11 +17,7 @@ npx wrangler r2 object put <your-bucket-name>/<filename> --file <path/filename> 
 - The modules in `islands` have to be "Default exports". They don't work with "Named exports".
 - To prevent flickers for dark mode, an inline script is needed. [stackoverflow](https://stackoverflow.com/questions/63033412/dark-mode-flickers-a-white-background-for-a-millisecond-on-reload)
 - The "unkink" event in the `local2r2` is not developed, but it should be super easy to build one.
-
-## TODO
-
-- [ ] Markdown syntax highlight.
-- [ ] Ambitious goal: Putting assets automatically.
+- `highlight.js` and `prism` do not support ESM, hence, those are loaded via CDN and executed on the client side.
 
 ## Kudos
 

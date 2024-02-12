@@ -1,5 +1,5 @@
 ---
-theme: just-the-docs
+theme: jekyll-theme-just-the-docs
 title: README
 ---
 

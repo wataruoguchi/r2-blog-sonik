@@ -1,5 +1,5 @@
 ---
-theme: default
+theme: just-the-docs
 title: README
 ---
 
